@@ -11,7 +11,7 @@
 #define blacksquare 0xFF
 #define zero 0x20
 		typedef unsigned int uint;
-		enum { empty =0 , bishop=1, tower=2, queen=3, rook=4, morph=5, pawn = 6};
+		//enum { empty =0 , bishop=1, tower=2, queen=3, rook=4, morph=5, pawn = 6};
 		static char** boardcontents;
 		const int size=8;
 		/*
