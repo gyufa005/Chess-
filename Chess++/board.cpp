@@ -1,5 +1,6 @@
 ﻿#include "board.h"
 #include <iostream>
+char** board::boardcontents = nullptr;
 board::board() {
     {
         boardcontents = new char* [size];
