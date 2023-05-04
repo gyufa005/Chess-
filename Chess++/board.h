@@ -28,5 +28,7 @@
 		~board();
 	public:
 		static board& getboard() { static board b; return b;}
+		//todo: Drawboard írja ki a koordinátákat is hogy a játékost segítse
 		static void drawboard();
+		//todo: static void flip();
 	};

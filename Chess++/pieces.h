@@ -1,14 +1,15 @@
-#pragma once
-//! A header alapötlete, hogy itt lesznek a classok definiálva, 
-//! amik tulajdonságokkal látják el a tábla tartalmát
-//! a lépések dekódolásakor
+ï»¿#pragma once
+//! A header alapÃ¶tlete, hogy itt lesznek a classok definiÃ¡lva, 
+//! amik tulajdonsÃ¡gokkal lÃ¡tjÃ¡k el a tÃ¡bla tartalmÃ¡t
+//! a lÃ©pÃ©sek dekÃ³dolÃ¡sakor
 #include <iostream>
 #include "board.h"
-//! Célom öröklés megvalósítása virtuális destruktorral, 
-//! és virtuális lépés validitás tesztel? függvénnyel
-//! 
+//! CÃ©lom Ã¶rÃ¶klÃ©s megvalÃ³sÃ­tÃ¡sa virtuÃ¡lis destruktorral, 
+//! Ã©s virtuÃ¡lis lÃ©pÃ©s validitÃ¡s tesztelÅ‘ fÃ¼ggvÃ©nnyel
 class piece {
 	static board _board;
+	//todo x,y helyett vector class
+	int x, y;
 	piece();
 	virtual ~piece();
 };
