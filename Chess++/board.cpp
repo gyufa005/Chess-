@@ -3,6 +3,7 @@
 char** board::boardcontents = nullptr;
 board::board() {
     {
+        //dinamikus foglalás a táblának
         boardcontents = new char* [size];
         for (int i = 0; i < size; i++)
             boardcontents[i] = new char[size];

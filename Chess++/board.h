@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 /* unicode bábuk: 
+*	ezeket nem tudtam implementálni, ezért betűk a bábuk.
 	fehér:  ♜♞♝♛♚♟︎
 	fekete: ♖♘♗♕♔♙
 	morph bábu: fekete: m,fehér: M
