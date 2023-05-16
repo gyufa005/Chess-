@@ -13,9 +13,10 @@
 #define zero 0x20
 		typedef unsigned int uint;
 		//enum { empty =0 , bishop=1, tower=2, queen=3, rook=4, morph=5, pawn = 6};
-		static char** boardcontents;
-		const int size=8;
+		static char boardcontents[8][8];
+		bool nextturn;
 		/*
+		* Nem így néz ki
 				{ '♜', '♚', '♝', '♛', '♚', '♝', '♚', '♜' },
 				{ '♟︎',  '♟︎',  'M',  '♟︎',  '♟︎',  'M',  '♟︎','♟'},
 				{ zero, zero, zero, zero, zero, zero, zero, zero },
@@ -25,9 +26,10 @@
 				{ '♙',  '♙',  'm',  '♙',  '♙',  'm',  '♙',  '♙' },
 				{ '♖',  '♔',  '♗',  '♕',  '♔',  '♗',  '♔',  '♖' } };*/
 		board();
-		~board();
+		
 	public:
-		static board& getboard() { static board b; return b;}
+		~board();
+		static board& getboard(){ static board b; return b; }
 		//todo: Drawboard írja ki a koordinátákat is hogy a játékost segítse
 		static void drawboard();
 		//todo: static void flip();

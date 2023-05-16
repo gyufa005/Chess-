@@ -1,12 +1,17 @@
 ﻿#include "board.h"
 #include <iostream>
-char** board::boardcontents = nullptr;
+#include <stdio.h>
+//char** board::boardcontents = nullptr;
+char board::boardcontents[8][8];
 board::board() {
     {
+        std::cout << "constructor runs\n";
         //dinamikus foglalás a táblának
-        boardcontents = new char* [size];
+        /*boardcontents = new char* [size];
         for (int i = 0; i < size; i++)
             boardcontents[i] = new char[size];
+        */
+        nextturn = true;
         //üresek
         for (int i = 0; i < 8; i++)
             for (int s = 2; s < 6; s++)
@@ -42,51 +47,106 @@ board::board() {
     }
 }
 board::~board() {
-    for (int i = 0; i < size; i++)
+    /*for (int i = 0; i < size; i++)
         delete[] boardcontents[i];
-    delete[] boardcontents;
+    delete[] boardcontents;*/
+    std::cerr<< "destructor runs\n"<<std::endl;
 }
 void board::drawboard()
 {//c=column, r=row
     static board b;
-    for (int c = 0; c < 8; c++)
+    if (b.nextturn)
     {
-        int colour = c % 2;
-        for (int i = 0; i < 4; i++)
+        for (int c = 0; c < 8; c++)
         {
-            if (colour)
+            int colour = c % 2;
+            for (int i = 0; i < 4; i++)
             {
-                printf("%c%c%c", whitesquare, whitesquare, whitesquare);
-                printf("%c%c%c", blacksquare, blacksquare, blacksquare);
+                //felső keret
+                if (colour)
+                {
+                    printf("%c%c%c", whitesquare, whitesquare, whitesquare);
+                    printf("%c%c%c", blacksquare, blacksquare, blacksquare);
+                }
+                else {
+                    printf("%c%c%c", blacksquare, blacksquare, blacksquare);
+                    printf("%c%c%c", whitesquare, whitesquare, whitesquare);
+                }
             }
-            else {
-                printf("%c%c%c", blacksquare, blacksquare, blacksquare);
-                printf("%c%c%c", whitesquare, whitesquare, whitesquare);
-            }
-        }
-        printf("\n");
-        for (int r = 0; r < 8; r++)
-        {
-            if ((colour+r)%2)
-                printf("%c%c%c", whitesquare, b.boardcontents[c][r], whitesquare);
-            else
-                printf("%c%c%c", blacksquare, b.boardcontents[c][r], blacksquare);
-        }
-        printf("\n");
-        for (int i = 0; i < 4; i++)
-        {
-            if (colour)
+            printf("\n");
+            //középső sor
+            for (int r = 0; r < 8; r++)
             {
-                printf("%c%c%c", whitesquare, whitesquare, whitesquare);
-                printf("%c%c%c", blacksquare, blacksquare, blacksquare);
-            }
-            else {
-                printf("%c%c%c", blacksquare, blacksquare, blacksquare);
-                printf("%c%c%c", whitesquare, whitesquare, whitesquare);
-            }
-        }
-        printf("\n");
+                if ((colour + r) % 2)
+                    printf("%c%c%c", whitesquare, b.boardcontents[c][r], whitesquare);
+                else
+                    printf("%c%c%c", blacksquare, b.boardcontents[c][r], blacksquare);
 
+            }
+            //alsó sor
+            printf("\n");
+            for (int i = 0; i < 4; i++)
+            {
+                if (colour)
+                {
+                    printf("%c%c%c", whitesquare, whitesquare, whitesquare);
+                    printf("%c%c%c", blacksquare, blacksquare, blacksquare);
+                }
+                else {
+                    printf("%c%c%c", blacksquare, blacksquare, blacksquare);
+                    printf("%c%c%c", whitesquare, whitesquare, whitesquare);
+                }
+            }
+            printf("\n");
+        }
     }
+    else
+    {
+        for (int c = 7; c >= 0; c--)
+        {
+            int colour = c % 2;
+            for (int i = 0; i < 4; i++)
+            {
+                //felső keret
+                if (!colour)
+                {
+                    printf("%c%c%c", whitesquare, whitesquare, whitesquare);
+                    printf("%c%c%c", blacksquare, blacksquare, blacksquare);
+                }
+                else {
+                    printf("%c%c%c", blacksquare, blacksquare, blacksquare);
+                    printf("%c%c%c", whitesquare, whitesquare, whitesquare);
+                }
+            }
+            printf("\n");
+            //középső sor
+            for (int r = 7; r >= 0; r--)
+            {
+                if ((colour + r) % 2)
+                    printf("%c%c%c", whitesquare, b.boardcontents[c][r], whitesquare);
+                else
+                    printf("%c%c%c", blacksquare, b.boardcontents[c][r], blacksquare);
+
+            }
+            //alsó sor
+            printf("\n");
+            for (int i = 0; i < 4; i++)
+            {
+                if (!colour)
+                {
+                    printf("%c%c%c", whitesquare, whitesquare, whitesquare);
+                    printf("%c%c%c", blacksquare, blacksquare, blacksquare);
+                }
+                else {
+                    printf("%c%c%c", blacksquare, blacksquare, blacksquare);
+                    printf("%c%c%c", whitesquare, whitesquare, whitesquare);
+                }
+            }
+            printf("\n");
+            // this->++nextturn%=2;
+        }
+    }
+    b.nextturn = !b.nextturn;
     return;
-}
+    }
+
