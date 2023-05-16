@@ -57,9 +57,11 @@ void board::drawboard()
     static board b;
     if (b.nextturn)
     {
+        printf("  a  b  c  d  e  f  g  h  \n");
         for (int c = 0; c < 8; c++)
         {
-            int colour = c % 2;
+            std::cout << " ";
+            int colour = (c+1) % 2;
             for (int i = 0; i < 4; i++)
             {
                 //felső keret
@@ -75,6 +77,7 @@ void board::drawboard()
             }
             printf("\n");
             //középső sor
+            std::cout << -1 * (c - 8);
             for (int r = 0; r < 8; r++)
             {
                 if ((colour + r) % 2)
@@ -85,6 +88,7 @@ void board::drawboard()
             }
             //alsó sor
             printf("\n");
+            std::cout << " ";
             for (int i = 0; i < 4; i++)
             {
                 if (colour)
@@ -102,9 +106,11 @@ void board::drawboard()
     }
     else
     {
+        printf("  h  g  f  e  d  c  b  a  \n");
         for (int c = 7; c >= 0; c--)
         {
-            int colour = c % 2;
+            std::cout <<" ";
+            int colour = (c+1) % 2;
             for (int i = 0; i < 4; i++)
             {
                 //felső keret
@@ -120,6 +126,7 @@ void board::drawboard()
             }
             printf("\n");
             //középső sor
+            std::cout <<-1*(c-8);
             for (int r = 7; r >= 0; r--)
             {
                 if ((colour + r) % 2)
@@ -130,6 +137,7 @@ void board::drawboard()
             }
             //alsó sor
             printf("\n");
+            std::cout << " ";
             for (int i = 0; i < 4; i++)
             {
                 if (!colour)
