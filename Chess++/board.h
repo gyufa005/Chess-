@@ -6,7 +6,7 @@
 	fekete: ♖♘♗♕♔♙
 	morph bábu: fekete: m,fehér: M
 */
-	static class board {
+	class board {
 		//gyakran előfordulhatnak ezek a karakterek: 
 #define whitesquare 0xDB
 #define blacksquare 0xFF
@@ -14,7 +14,7 @@
 		typedef unsigned int uint;
 		//enum { empty =0 , bishop=1, tower=2, queen=3, rook=4, morph=5, pawn = 6};
 		static char boardcontents[8][8];
-		bool nextturn;
+		bool blknext;
 		/*
 		* Nem így néz ki
 				{ '♜', '♚', '♝', '♛', '♚', '♝', '♚', '♜' },
@@ -25,10 +25,11 @@
 				{ zero, zero, zero, zero, zero, zero, zero, zero },
 				{ '♙',  '♙',  'm',  '♙',  '♙',  'm',  '♙',  '♙' },
 				{ '♖',  '♔',  '♗',  '♕',  '♔',  '♗',  '♔',  '♖' } };*/
-		board();
+		
 		
 	public:
+		board();
 		~board();
-		static board& getboard() { static board b; return b; }
-		static void drawboard();
+		const board& getboard()const { return *this; }
+		void drawboard();
 	};
