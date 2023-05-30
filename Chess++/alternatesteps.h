@@ -45,5 +45,6 @@ public:
 };
 std::istream& operator>>(std::istream& is, bstep& s)
 {
-	is >>this->start>>this->end;
+	is >>s.start>>s.end;
+	return is;
 }
