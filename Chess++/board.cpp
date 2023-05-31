@@ -15,11 +15,11 @@ board::board() {
         //üresek
         for (int i = 0; i < 8; i++)
             for (int s = 2; s < 6; s++)
-                boardcontents[s][i] = zero;
+                boardcontents[s][i]=zero;
         //gyalogok
         for (int i = 0; i < 8; i++) {
-            boardcontents[1][i] = 'P';
-            boardcontents[6][i] = 'p';
+            boardcontents[6][i] = 'P';
+            boardcontents[1][i] = 'p';
         }
         //ChatGPT
         boardcontents[7][0] = 'R';
