@@ -20,23 +20,33 @@ public:
 	bool getC()const { return colour; }
 	void colorchange() { this->colour=!this->colour; return; }
 	virtual ~piece() {}
+	virtual bool canitmove(const step& s)const {
+		return false;
+	}
 };
 class rook :public piece {
 public:
+	bool canitmove(const step& s)const override { if (s.isStraight())return true; else return false; }
 	rook(int x,int y):piece(x,y,'r','R'){}
 };
 class queen : public piece {
 public:
+	bool canitmove(const step& s)const override { if (s.isStraight() || s.isdiag())return true; else return false; }
 	queen(int x,int y) : piece(x,y,'q','Q'){}
 };
 
 class bishop : public piece {
 public:
+	bool canitmove(const step& s)const override { if (s.isdiag())return true; }
 	bishop(int x,int y) : piece(x,y,'b','B'){}
 };
 
 class pawn : public piece {
 public:
+	bool canitmove(const step& s)const override {
+		if (s.lenght == 1 && ((this->colour == true && s.isForward()) || (this->colour == false && !s.isForward())))
+			return true; else return false;
+	}
 	pawn(int x,int y) : piece(x,y,'p','P'){}
 };
 class tower : public piece {
@@ -46,6 +56,7 @@ public:
 class morph : public piece {
 	piece* type;
 public: 
+	bool canitmove(const step& s)const override { return type->canitmove(); }
 	morph(int x,int y) : piece(x,y, 'm', 'M') { type = new pawn(x,y); }
 	~morph() { delete type; }
 };

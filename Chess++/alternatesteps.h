@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <stdio.h>
 #include <iostream>
 class coord {
@@ -11,7 +11,7 @@ public:
 	const coord& getcoord()const { return *this; }
 	void setcoord(int x = 0, int y = 0) { x = x; y = y; }
 	friend std::istream& operator>>(std::istream& is, coord& coo);
-	void convert() { this->x -= ('A'); }//EZ az asciit int értékére váltja
+	void convert() { this->x -= ('A'); }//EZ az asciit int Ã©rtÃ©kÃ©re vÃ¡ltja
 };
 
 std::istream& operator>>(std::istream& is, coord& coo) {
@@ -35,17 +35,23 @@ class step{
 public: 
 	coord getstart()const { return start; }
 	coord getend()const { return end; }
-	//lépés hossza a nagyobb különbség a koordinátákból
-	int lenght() {
+
+	//! TesztelÅ‘ fÃ¼ggvÃ©nyek
+	//lÃ©pÃ©s hossza a nagyobb kÃ¼lÃ¶nbsÃ©g a koordinÃ¡tÃ¡kbÃ³l
+	int lenght()const {
 		if ((end.getx() - start.getx()) >= (end.gety() - start.gety()))
 			return end.getx() - start.gety();
 		else return end.gety() - start.gety();
 	}
-	bool isYdir() { return !(end.getx() - start.getx()); }
-	bool isXdir() { return !(end.gety() - start.gety()); }
-	bool isdiag() {
+	bool isStraight()const { return (end.getx() - start.getx()||end.gety()-start.gety()); }
+	bool isYdir()const { return !(end.getx() - start.getx()); }
+	bool isXdir()const { return !(end.gety() - start.gety()); }
+	bool isdiag()const {
 		return ((end.getx() - start.getx()) == (end.gety() - start.gety()));
 	}
+	bool isForward()const { return ((end.gety() - start.gety()) > 0); }
+
+
 	friend std::istream& operator>>(std::istream& is, step& s);
 };
 std::istream& operator>>(std::istream& is, step& s)

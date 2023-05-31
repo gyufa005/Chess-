@@ -15,6 +15,7 @@ bool teststep(const step& s, const altboard& b)
 	coord end = s.getend();
 	p = b.at(start);
 	if (p->getC() == b.turncolour());
+	p.canitmove(s);
 }
 void erase()
 {
