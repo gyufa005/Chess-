@@ -21,19 +21,30 @@ bool teststep(const step& s, const altboard& b)
 	if (f->getC() == b.turncolour())
 	{
 		if (f->canitmove(s))
+		{
 			if (b.checkmove(s))
 				return true;
+		}
+		else throw "the piece cannot move like that";
 	}
-	else return false;
+	else
+		throw "incorrect color. pick another piece.";
+	return false;
 }
-int game(const altboard& b){
+void game(altboard& b){
 	bool gameend = false;
 	while (!gameend)
 	{
 		step s;
 		try {
 			std::cin >> s;
-			teststep(s,b);
+			if (teststep(s, b))
+			{
+				b.doMove(s);
+				if (b.wincond_check())
+					gameend = true;
+			}
+
 		}
 		catch (const char* errmsg) { std::cerr << "Error: " << errmsg << std::endl; }
 	}
@@ -49,11 +60,6 @@ int main()
 	altboard b;
 	char k;
 	b.drawboard();
-	scanf_s("%c",&k);
-	erase();
-	b.drawboard();
-	step s;
-	std::cin >> s;
-	//piece(s.)
+	game(b);
 	return 0;
 }

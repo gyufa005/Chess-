@@ -6,11 +6,39 @@
 #define blacksquare 0xFF
 #define zero 0x20
 class altboard {
+    //piece heterogén kollekciója+ki következik a lépésben
 	piece* boardcontents[8][8];
 	bool white;
 public: 
+    bool wincond_check() {
+        if ((boardcontents[7][6]->isTower() || boardcontents[7][4]->isTower() || boardcontents[7][1]->isTower()) &&
+            (boardcontents[0][6]->isTower() || boardcontents[0][4]->isTower() || boardcontents[0][1]->isTower()))return false;
+        else return false;
+    }
+    bool whowon() {//true = white , false = black
+        if ((boardcontents[7][6]->isTower() || boardcontents[7][4]->isTower() || boardcontents[7][1]->isTower()))
+            return false;
+        else if (boardcontents[0][6]->isTower() || boardcontents[0][4]->isTower() || boardcontents[0][1]->isTower())
+            return true;
+        else
+            throw "nobody won but whowon was called.";
+    }
+    //ez elvégzi a lépést
+    void doMove(const step& s) {
+        int i = s.getstart().getx();
+        int j = s.getstart().gety();
+        int k = s.getend().getx();
+        int l = s.getend().gety();
+        delete boardcontents[k][l];
+        boardcontents[i][j]->changecoord(s.getend());
+        boardcontents[k][l] = boardcontents[i][j];
+        boardcontents[i][j] = new piece(i, j);
+        return;
+    }
+    //ez megnézi van-e a lépés útjában valami
     bool checkmove(const step& s)const {
-        for (int i = 0;i < s.lenght()-1; i++)
+        //? lenght diagonálisan max(x,y)-t returnöl,nem vektor normát.
+        for (int i = 0; i < s.lenght() - 1; i++)
         {
             if (s.isXdir())
             {
@@ -24,7 +52,10 @@ public:
             {
                 if (!(isEmpty(s.getstart().getx() + i, s.getstart().gety() + i)))return false;
             }
-            else return false;
+            else {
+                throw"there is another piece in the way";
+                    return false;
+            }
         }
         return true;
     }
@@ -66,10 +97,11 @@ public:
         boardcontents[0][5] = new bishop(0,5);
         boardcontents[0][6] = new tower(0,6);
         boardcontents[0][7] = new rook(0,7);
+        //2 gyalog helyett morph
         delete boardcontents[1][2], boardcontents[1][5];
         boardcontents[1][2] = new morph(1,2);
         boardcontents[1][5] = new morph(1,5);
-        //fekete bábuk negálása(az állítja a színt)
+        //fekete bábuk színe
         for (int i = 0; i < 8; i++) {
             boardcontents[7][i]->colorchange();
             boardcontents[6][i]->colorchange();

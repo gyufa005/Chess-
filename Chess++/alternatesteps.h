@@ -12,6 +12,7 @@ public:
 	void setcoord(int x = 0, int y = 0) { x = x; y = y; }
 	friend std::istream& operator>>(std::istream& is, coord& coo);
 	void convert() { this->x -= ('A'); }//EZ az asciit int értékére váltja
+	void operator=(const coord& r) { this->setcoord(r.getx(), r.gety()); }
 };
 
 std::istream& operator>>(std::istream& is, coord& coo) {

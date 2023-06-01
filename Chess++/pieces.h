@@ -23,9 +23,16 @@ public:
 	virtual bool canitmove(const step& s)const {
 		return false;
 	}
+	void changecoord(const coord& c)
+	{
+		location = c;
+		return;
+	}
+	virtual bool isTower() { return false; }
 };
 class rook :public piece {
 public:
+	
 	bool canitmove(const step& s)const override {
 		if (s.isStraight())
 			return true;
@@ -35,12 +42,14 @@ public:
 };
 class queen : public piece {
 public:
+	
 	bool canitmove(const step& s)const override { if (s.isStraight() || s.isdiag())return true; else return false; }
 	queen(int x,int y) : piece(x,y,'q','Q'){}
 };
 
 class bishop : public piece {
 public:
+	
 	bool canitmove(const step& s)const override { if (s.isdiag())return true; }
 	bishop(int x,int y) : piece(x,y,'b','B'){}
 };
@@ -55,6 +64,7 @@ public:
 };
 class tower : public piece {
 public: 
+	bool isTower()override { return true; }
 	bool canitmove(const step& s)const override { return false; }
 	tower(int x,int y) : piece(x,y, 't', 'T') {}
 };
