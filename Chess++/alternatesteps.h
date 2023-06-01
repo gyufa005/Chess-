@@ -13,7 +13,7 @@ public:
 	int gety()const { return y; }
 	int getx()const { return x; }
 	const coord& getcoord()const { return *this; }
-	void setcoord(int x = 0, int y = 0) { x = x; y = y; }
+	void setcoord(int x = 0, int y = 0) { this->x = x; this->y = y; }
 	friend std::istream& operator>>(std::istream& is, coord& coo);
 	void convert() { this->x -= ('A'); }//EZ az asciit int értékére váltja
 	void operator=(const coord& r) { this->setcoord(r.getx(), r.gety()); }
@@ -26,8 +26,8 @@ std::istream& operator>>(std::istream& is, coord& coo) {
 	first = std::toupper(first);
 	if (first >= 'A' && first <= 'H' && second >= 1 && second <= 8) {
 		coo.y = first - 'A';
-		coo.x = second - 1;
-		return is;
+		second = second - '0';
+		return ;
 	}
 	else
 		throw "error reading step";
@@ -44,7 +44,7 @@ public:
 	//! Tesztelő függvények
 	//lépés hossza a nagyobb különbség a koordinátákból
 	int lenght()const {
-		if ((end.getx() - start.getx()) >= (end.gety() - start.gety()))
+		if ((abs(end.getx() - start.getx())) >= (abs(end.gety() - start.gety())))
 			return abs(end.getx() - start.gety());
 		else return abs(end.gety() - start.gety());
 	}

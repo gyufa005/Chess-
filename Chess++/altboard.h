@@ -61,8 +61,8 @@ public:
     }
     bool isEmpty(int x,int y)const { return (boardcontents[x][y]->getP() == zero); }
     bool turncolour()const { return !white; }
-    piece* at(coord& c)const {
-        return boardcontents[c.getx()][c.gety()];
+    piece* at(const coord& c)const {
+        return boardcontents[c.gety()][c.getx()];
     }
     altboard() {
 		std::cout << "Constructor runs";
