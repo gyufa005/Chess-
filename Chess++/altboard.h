@@ -9,14 +9,14 @@ class altboard {
     bool white;
 public:
     bool wincond_check() {
-        if ((boardcontents[7][6]->isTower() || boardcontents[7][4]->isTower() || boardcontents[7][1]->isTower()) &&
-            (boardcontents[0][6]->isTower() || boardcontents[0][4]->isTower() || boardcontents[0][1]->isTower()))return false;
-        else return false;
+        if ((boardcontents[6][7]->isTower() || boardcontents[4][7]->isTower() || boardcontents[1][7]->isTower()) &&
+            (boardcontents[6][0]->isTower() || boardcontents[4][0]->isTower() || boardcontents[1][0]->isTower()))return false;
+        else return true;
     }
     bool whowon() {//true = white , false = black
-        if ((boardcontents[7][6]->isTower() || boardcontents[7][4]->isTower() || boardcontents[7][1]->isTower()))
+        if ((boardcontents[6][7]->isTower() || boardcontents[4][7]->isTower() || boardcontents[1][7]->isTower()))
             return false;
-        else if (boardcontents[0][6]->isTower() || boardcontents[0][4]->isTower() || boardcontents[0][1]->isTower())
+        else if (boardcontents[6][0]->isTower() || boardcontents[4][0]->isTower() || boardcontents[1][0]->isTower())
             return true;
         else
             throw "nobody won but whowon was called.";
