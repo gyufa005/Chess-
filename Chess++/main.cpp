@@ -1,7 +1,7 @@
-﻿#include <iostream>
+
 #include <string>
 #include <stdio.h>
-#include "board.h"
+#include <iostream>
 //#include "steps.h"
 #include "alternatesteps.h"
 #include "pieces.h"
@@ -23,7 +23,7 @@ bool teststep(const step& s, const altboard& b)
 	coord end = s.getend();
 	f = b.at(start);
 	t = b.at(end);
-	if (f->getC()-b.turncolour()==0)
+	if (f->getC() - b.turncolour() == 0)
 	{
 		if (f->canitmove(s))
 		{
@@ -36,7 +36,7 @@ bool teststep(const step& s, const altboard& b)
 		throw "incorrect color. pick another piece.";
 	return false;
 }
-void game(altboard& b){
+void game(altboard& b) {
 	bool gameend = false;
 	while (!gameend)
 	{
@@ -64,5 +64,9 @@ int main()
 	char k;
 	b.drawboard();
 	game(b);
+	if (b.whowon())
+		std::cout << "White won, congrats" << std::endl;
+	else
+		std::cout << "Black won, congrats" << std::endl;
 	return 0;
 }
