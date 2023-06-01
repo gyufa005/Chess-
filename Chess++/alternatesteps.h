@@ -25,7 +25,7 @@ std::istream& operator>>(std::istream& is, coord& coo) {
 		return is;
 	}
 	else
-		std::cerr << "error reading step\nprovide a new step input" << std::endl;
+		throw "error reading step";
 	return is;
 }
 

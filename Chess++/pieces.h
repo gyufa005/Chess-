@@ -3,7 +3,7 @@
 //! amik tulajdonságokkal látják el a tábla tartalmát
 //! a lépések dekódolásakor
 #include <iostream>
-#include "board.h"
+//#include "altboard.h"
 //! Célom öröklés megvalósítása virtuális destruktorral, 
 //! és virtuális lépés validitás tesztelő függvénnyel
 class piece {//! Ez alapból az "üres" bábu 
@@ -26,7 +26,11 @@ public:
 };
 class rook :public piece {
 public:
-	bool canitmove(const step& s)const override { if (s.isStraight())return true; else return false; }
+	bool canitmove(const step& s)const override {
+		if (s.isStraight())
+			return true;
+		else return false;
+	}
 	rook(int x,int y):piece(x,y,'r','R'){}
 };
 class queen : public piece {
@@ -44,19 +48,20 @@ public:
 class pawn : public piece {
 public:
 	bool canitmove(const step& s)const override {
-		if (s.lenght == 1 && ((this->colour == true && s.isForward()) || (this->colour == false && !s.isForward())))
+		if (s.lenght() == 1 && ((this->colour == true && s.isForward()) || (this->colour == false && !s.isForward())))
 			return true; else return false;
 	}
 	pawn(int x,int y) : piece(x,y,'p','P'){}
 };
 class tower : public piece {
 public: 
+	bool canitmove(const step& s)const override { return false; }
 	tower(int x,int y) : piece(x,y, 't', 'T') {}
 };
 class morph : public piece {
 	piece* type;
 public: 
-	bool canitmove(const step& s)const override { return type->canitmove(); }
+	bool canitmove(const step& s)const override { return type->canitmove(s); }
 	morph(int x,int y) : piece(x,y, 'm', 'M') { type = new pawn(x,y); }
 	~morph() { delete type; }
 };

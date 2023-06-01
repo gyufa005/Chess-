@@ -9,7 +9,26 @@ class altboard {
 	piece* boardcontents[8][8];
 	bool white;
 public: 
-    bool isEmpty(const coord& c)const { return (boardcontents[c.getx()][c.gety()]->getP() == zero); }
+    bool checkmove(const step& s)const {
+        for (int i = 0;i < s.lenght()-1; i++)
+        {
+            if (s.isXdir())
+            {
+                if (!(isEmpty(s.getstart().getx() + i, s.getstart().gety())))return false;
+            }
+            else if (s.isYdir())
+            {
+                if (!(isEmpty(s.getstart().getx(), s.getstart().gety() + i)))return false;
+            }
+            else if (s.isdiag())
+            {
+                if (!(isEmpty(s.getstart().getx() + i, s.getstart().gety() + i)))return false;
+            }
+            else return false;
+        }
+        return true;
+    }
+    bool isEmpty(int x,int y)const { return (boardcontents[x][y]->getP() == zero); }
     bool turncolour()const { return white; }
     piece* at(coord& c)const {
         return boardcontents[c.getx()][c.gety()];
