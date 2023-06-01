@@ -23,7 +23,7 @@ public:
 	virtual bool canitmove(const step& s)const {
 		return false;
 	}
-	void changecoord(const coord& c)
+	virtual void changecoord(const coord& c)
 	{
 		location = c;
 		return;
@@ -55,12 +55,23 @@ public:
 };
 
 class pawn : public piece {
+	int hasstepped;
 public:
-	bool canitmove(const step& s)const override {
-		if (s.lenght() == 1 && ((this->colour == true && s.isForward()) || (this->colour == false && !s.isForward())))
-			return true; else return false;
+	void changecoord(const coord& c)
+	{
+		hasstepped++;
+		location = c;
+		return;
 	}
-	pawn(int x,int y) : piece(x,y,'p','P'){}
+	bool canitmove(const step& s)const override {
+		if (((this->hasstepped == 0 && s.lenght() == 2) || s.lenght() == 1) &&
+			((this->colour == true && s.isForward()) || (this->colour == false && !s.isForward())))
+		{
+			return true;
+		}
+		else return false;
+	}
+	pawn(int x, int y) : piece(x, y, 'p', 'P') { hasstepped = 0; }
 };
 class tower : public piece {
 public: 

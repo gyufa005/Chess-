@@ -60,7 +60,7 @@ public:
         return true;
     }
     bool isEmpty(int x,int y)const { return (boardcontents[x][y]->getP() == zero); }
-    bool turncolour()const { return white; }
+    bool turncolour()const { return !white; }
     piece* at(coord& c)const {
         return boardcontents[c.getx()][c.gety()];
     }

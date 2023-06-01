@@ -1,6 +1,10 @@
 ﻿#pragma once
 #include <stdio.h>
 #include <iostream>
+#include <stdlib.h>
+//!!Az x és y irány fel lett cserélve a táblánál!! 
+//! Ezt teljességében ebben a headerben oldom meg, 
+//! de ez nem logikus elnevezésekhez vezet.
 class coord {
 	int x;
 	int y;
@@ -21,8 +25,8 @@ std::istream& operator>>(std::istream& is, coord& coo) {
 	is >> first >> second;
 	first = std::toupper(first);
 	if (first >= 'A' && first <= 'H' && second >= 1 && second <= 8) {
-		coo.x = first - 'A';
-		coo.y = second - 1;
+		coo.y = first - 'A';
+		coo.x = second - 1;
 		return is;
 	}
 	else
@@ -41,16 +45,16 @@ public:
 	//lépés hossza a nagyobb különbség a koordinátákból
 	int lenght()const {
 		if ((end.getx() - start.getx()) >= (end.gety() - start.gety()))
-			return end.getx() - start.gety();
-		else return end.gety() - start.gety();
+			return abs(end.getx() - start.gety());
+		else return abs(end.gety() - start.gety());
 	}
 	bool isStraight()const { return (end.getx() - start.getx()||end.gety()-start.gety()); }
-	bool isYdir()const { return !(end.getx() - start.getx()); }
-	bool isXdir()const { return !(end.gety() - start.gety()); }
+	bool isYdir()const { return !(end.gety() - start.gety()); }
+	bool isXdir()const { return !(end.getx() - start.getx()); }
 	bool isdiag()const {
 		return ((end.getx() - start.getx()) == (end.gety() - start.gety()));
 	}
-	bool isForward()const { return ((end.gety() - start.gety()) > 0); }
+	bool isForward()const { return ((end.getx() - start.getx()) > 0); }
 
 
 	friend std::istream& operator>>(std::istream& is, step& s);

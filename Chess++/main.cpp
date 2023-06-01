@@ -8,6 +8,11 @@
 #include <iostream>
 #include <stdio.h>
 #include "altboard.h"
+void erase()
+{
+	for (int i = 0; i < 28; i++)
+		printf("\n");
+}
 bool teststep(const step& s, const altboard& b)
 {
 	//! A függvény megnézi, hogy a bábu amivel lépni szeretne helyes színű, 
@@ -18,7 +23,7 @@ bool teststep(const step& s, const altboard& b)
 	coord end = s.getend();
 	f = b.at(start);
 	t = b.at(end);
-	if (f->getC() == b.turncolour())
+	if (f->getC()-b.turncolour()==0)
 	{
 		if (f->canitmove(s))
 		{
@@ -41,6 +46,8 @@ void game(altboard& b){
 			if (teststep(s, b))
 			{
 				b.doMove(s);
+				erase();
+				b.drawboard();
 				if (b.wincond_check())
 					gameend = true;
 			}
@@ -50,11 +57,7 @@ void game(altboard& b){
 	}
 }
 
-void erase()
-{
-	for (int i = 0; i < 28; i++)
-		printf("\n");
-}
+
 int main()
 {
 	altboard b;
